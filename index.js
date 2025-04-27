@@ -6,6 +6,17 @@ const app = express();
 
 app.use(morgan("dev"));
 
+app.use((req, res, next) => {
+  console.log("middleware 1");
+  next();
+  console.log("setlah next");
+});
+
+app.use((req, res, next) => {
+  console.log("middleware 2");
+  next();
+});
+
 app.get("/", (req, res) => {
   res.send("hello world");
 });
