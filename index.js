@@ -6,27 +6,33 @@ const app = express();
 
 app.use(morgan("dev"));
 
-app.use((req, res, next) => {
-  req.timeRequest = Date.now();
-  //   console.log(req.method, req.url);
-  next();
-});
+// app.use((req, res, next) => {
+//   req.timeRequest = Date.now();
+//   //   console.log(req.method, req.url);
+//   next();
+// });
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
+//   const { password } = req.query;
+//   if (password === "ilham") {
+//     next();
+//   }
+
+//   res.send("Perlu masukan password");
+// });
+
+const auth = (req, res, next) => {
   const { password } = req.query;
-  if (password === "ilham") {
-    next();
-  }
-
+  if (password === "ilham") next();
   res.send("Perlu masukan password");
-});
+};
 
 app.get("/", (req, res) => {
   res.send("hello world");
   console.log(req.timeRequest);
 });
 
-app.get("/admin", (req, res) => {
+app.get("/admin", auth, (req, res) => {
   res.send("hello admin");
 });
 
