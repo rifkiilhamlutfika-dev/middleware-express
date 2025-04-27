@@ -12,9 +12,22 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  const { password } = req.query;
+  if (password === "ilham") {
+    next();
+  }
+
+  res.send("Perlu masukan password");
+});
+
 app.get("/", (req, res) => {
   res.send("hello world");
   console.log(req.timeRequest);
+});
+
+app.get("/admin", (req, res) => {
+  res.send("hello admin");
 });
 
 app.use((req, res) => {
