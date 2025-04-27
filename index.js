@@ -4,21 +4,17 @@ const port = 8080 || 3000;
 
 const app = express();
 
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 app.use((req, res, next) => {
-  console.log("middleware 1");
-  next();
-  console.log("setlah next");
-});
-
-app.use((req, res, next) => {
-  console.log("middleware 2");
+  //   req.timeRequest = Date.now();
+  console.log(req.method, req.url);
   next();
 });
 
 app.get("/", (req, res) => {
   res.send("hello world");
+  console.log(req.timeRequest);
 });
 
 app.listen(port, () => {
